@@ -21,7 +21,6 @@ def choose(player: str,) -> str:
     if player == "human":
         choice: str = player_choose()
     else:
-        OPTIONS = ["rock", "paper", "scissors"]
         choice = random.choice(OPTIONS)
     return choice
 
