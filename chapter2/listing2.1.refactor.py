@@ -69,9 +69,7 @@ def play_rock_paper_scissors() -> None:
     Play one round of rock paper scissors
     """
     human_choice = choose(player="human")
-    # print(f"You chose {human_choice}")
     computer_choice = choose(player="ai")
-    # print(f"The computer chose {computer_choice}")
     for player, choice in {"human": human_choice, "computer": computer_choice}.items():
         announce_pick(player, choice)
     determine_outcome(human_choice=human_choice, computer_choice=computer_choice)
