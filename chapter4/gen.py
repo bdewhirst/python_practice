@@ -11,3 +11,6 @@ def squarer(vals: list) -> None:
 
 squarer([1, 2, 3])
 squarer(range(100_000_000))  # generators can be passed other generators-- range is a generator
+
+x2 = squarer([1, 2, 3, 4, 5])
+print(sum(x2))
