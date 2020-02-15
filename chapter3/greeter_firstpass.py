@@ -1,3 +1,6 @@
+# note: D. Hillard intends for us to refactor this such that it is better encapsulated
+
+
 import os
 
 import datetime
