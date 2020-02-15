@@ -2,7 +2,10 @@ appdirs==1.4.3
 attrs==19.3.0
 black==19.10b0
 Click==7.0
+DateTime==4.3
 pathspec==0.7.0
+pytz==2019.3
 regex==2020.1.8
 toml==0.10.0
 typed-ast==1.4.1
+zope.interface==4.7.1
