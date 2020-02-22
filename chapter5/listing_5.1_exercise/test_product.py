@@ -1,5 +1,7 @@
 import unittest
 
+import product
+
 
 class ProductTestCase(unittest.TestCase):
     def test_working(self) -> None:
@@ -11,3 +13,12 @@ class ProductTestCase(unittest.TestCase):
             - unittest also expects collections of one or more tests to be within unittest.TestCase objects
         """
         pass
+
+    def test_transform_name_for_sku(self):
+        """
+        Illustrate using unittest.TestCase's custom assertions
+        """
+        small_black_shoes = product.Product("shoes", "S", "black")
+        expected_value = "SHOES"
+        actual_value = small_black_shoes.transform_name_for_sku()
+        self.assertEqual(expected_value, actual_value)
