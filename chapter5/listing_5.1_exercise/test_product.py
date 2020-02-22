@@ -22,3 +22,15 @@ class ProductTestCase(unittest.TestCase):
         expected_value = "SHOES"
         actual_value = small_black_shoes.transform_name_for_sku()
         self.assertEqual(expected_value, actual_value)
+
+    def test_transform_name_for_sku_fails(self):
+        """
+        Illustrate a failing test by tweaking expected value
+
+        Details:
+            - it is recommended to see your tests fail to confirm test is valid
+        """
+        small_black_shoes = product.Product("shoes", "S", "black")
+        expected_value = "SHOEZ"
+        actual_value = small_black_shoes.transform_name_for_sku()
+        self.assertEqual(expected_value, actual_value)
