@@ -35,3 +35,33 @@ class DatabaseManager:
             ({', '.join(columns_with_types)});
             """
         )
+
+    def add(self, table_name: str, data: dict):
+        """
+        Programmatically add data to a database table
+        """
+        placeholders: list = ", ".join("?" * len(data))
+        column_names: list = ", ".join(data.keys())
+        column_values: list = tuple(data.values())
+
+        self._execute(
+            statement=f"""
+            INSERT INTO {table_name}
+            {(column_names)}
+            VALUES ({placeholders});
+            """,
+            values=column_values,
+        )
+
+    def delete(self, table_name: str, criteria: dict):
+        """
+        Programmatically delete data as specified by critera
+        """
+        placeholders: list = [f'{column} = ?' for column in criteria.keys()]
+        delete_criteria = ' AND '.join(placeholders)
+        self._execute(
+            statement=f'''
+            DELETE FROM {table_name}
+            WHERE {delete_criteria};
+            ''',
+        )
