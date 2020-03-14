@@ -23,3 +23,15 @@ class DatabaseManager:
             cursor = self.connection.cursor()
             cursor.execute(statement, values)
             return cursor
+
+    def create_table(self, table_name: str, columns: list) -> dict:
+        """
+        Programmatically create a table, which returns an empty list
+        """
+        columns_with_types = [f"{column_name} {data_type}" for column_name, data_type in columns.items()]
+        self._execute(
+            f"""
+            CREATE TABLE IF NOT EXISTS {table_name}
+            ({', '.join(columns_with_types)});
+            """
+        )
