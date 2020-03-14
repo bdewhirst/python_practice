@@ -57,11 +57,28 @@ class DatabaseManager:
         """
         Programmatically delete data as specified by critera
         """
-        placeholders: list = [f'{column} = ?' for column in criteria.keys()]
-        delete_criteria = ' AND '.join(placeholders)
+        placeholders: list = [f"{column} = ?" for column in criteria.keys()]
+        delete_criteria = " AND ".join(placeholders)
         self._execute(
-            statement=f'''
+            statement=f"""
             DELETE FROM {table_name}
             WHERE {delete_criteria};
-            ''',
+            """,
         )
+
+    def select(self, table_name: str, criteria: dict = {}, order_by: dict = {}) -> list:
+        """
+        Programmatically retrieve data from database and return it as a list
+        """
+        query: str = f"SELECT * FROM {table_name}"
+
+        if criteria:
+            placeholders: list = [f"{column} = ?" for column in criteria.keys()]
+            select_criteria: str = " AND ".join(placeholders)
+            query += f" WHERE {select_criteria}"
+
+        if order_by:
+            query += f" ORDER BY {order_by}"
+
+        result = self._execute(statement=query, value=tuple(criteria.values()),)
+        return result
