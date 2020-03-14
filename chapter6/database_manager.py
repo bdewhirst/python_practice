@@ -82,3 +82,5 @@ class DatabaseManager:
 
         result = self._execute(statement=query, value=tuple(criteria.values()),)
         return result
+
+# Persistence layer

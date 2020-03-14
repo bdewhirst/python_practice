@@ -66,3 +66,5 @@ class QuitCommand:
 
     def execute(self):
         sys.exit()
+
+# Business logic layer
