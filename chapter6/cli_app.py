@@ -1,3 +1,5 @@
+import os
+
 import commands
 
 
@@ -17,6 +19,9 @@ class Option:
 
 
 def print_options(options):
+    """
+    Displays the supported options and the shortcut
+    """
     for shortcut, option in options.items():
         print(f"({shortcut}) {option}")
         print()
@@ -59,7 +64,23 @@ def get_bookmark_id_for_deletion():
     return get_user_input("Enter a bookmark ID to delete")
 
 
-if __name__ == "__main__":
+def clear_screen():
+    """
+    Clear the screen before re-printing the menu
+    """
+    clear = 'cls' if os.name == 'nt' else 'clear'
+    os.system(clear)
+
+
+def loop():
+    main()
+    _ = input('Press Enter to return to menu')
+
+
+def main():
+    """
+
+    """
     print("Welcome to bookmarking widget!")
     commands.CreateBookmarksTableCommand().execute()
 
@@ -70,6 +91,15 @@ if __name__ == "__main__":
         "D": Option("Delete a bookmark", commands.DeleteBookmarkCommand()),
         "Q": Option("Quit", commands.QuitCommand()),
     }
+    clear_screen()
     print_options(options)
+    chosen_option = get_option_choice(options)
+    clear_screen()
+    chosen_option.choose()
+
+
+if __name__ == "__main__":
 
 # This is the presentation layer
+    while True:
+        loop()
