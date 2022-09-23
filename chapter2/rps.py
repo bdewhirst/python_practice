@@ -2,7 +2,7 @@
 # but doesn't assign doing so as an explicit exercise
 # I'll refactor my code here for practice
 
-
+2
 import random
 
 OPTIONS = ("rock", "paper", "scissors")
@@ -15,7 +15,7 @@ class RPSSimulator:
 
     def __init__(self):
         self.computer_choice: str
-        self.human_chioce: str
+        self.human_choice: str
 
     def player_choose(self) -> None:
         """
