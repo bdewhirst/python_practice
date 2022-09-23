@@ -2,7 +2,8 @@
 # Listing 2.1 (cleaning up) Shoddy procedural code
 import random
 
-OPTIONS = ("rock", "paper", "scissors")
+
+OPTIONS: tuple = ("rock", "paper", "scissors")
 
 
 def player_choose() -> str:
