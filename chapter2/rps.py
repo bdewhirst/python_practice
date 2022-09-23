@@ -2,7 +2,7 @@
 # but doesn't assign doing so as an explicit exercise
 # I'll refactor my code here for practice
 
-2
+
 import random
 
 OPTIONS = ("rock", "paper", "scissors")
