@@ -1,2 +1,10 @@
 hillard's solutions:
 https://github.com/daneah/practices-of-the-python-pro
+
+private user forum:
+
+rules of conduct:
+https://livebook.manning.com/#!/discussion
+
+book forum:
+https://livebook.manning.com/#!/book/practices-of-the-python-pro/
