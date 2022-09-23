@@ -7,6 +7,7 @@ class Product:
         self.name = name
         self.size = size
         self.color = color
+
     def transform_name_for_sku(self):
         return self.name.upper()
 
@@ -24,4 +25,4 @@ class Product:
         """
         name = self.transform_name_for_sku()
         color = self.transform_color_for_sku()
-        return f'{name}-{self.size}-{color}'
+        return f"{name}-{self.size}-{color}"

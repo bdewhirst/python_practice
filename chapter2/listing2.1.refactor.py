@@ -14,7 +14,9 @@ def player_choose() -> str:
     return choice
 
 
-def choose(player: str,) -> str:
+def choose(
+    player: str,
+) -> str:
     """
     If player is 'human', solicit input, otherwise pick randomly
     """
@@ -35,7 +37,9 @@ def announce_pick(player: str, choice: str) -> None:
         print(f"The computer chose {choice}")
 
 
-def score_game(human_choice: str, computer_choice: str, human_beats: str, human_loses: str) -> None:
+def score_game(
+    human_choice: str, computer_choice: str, human_beats: str, human_loses: str
+) -> None:
     """
     Print outcome of non-draw games
     """
@@ -54,14 +58,25 @@ def determine_outcome(human_choice: str, computer_choice: str) -> None:
 
     if human_choice == "rock":
         score_game(
-            human_choice=human_choice, computer_choice=computer_choice, human_beats="scissors", human_loses="paper"
+            human_choice=human_choice,
+            computer_choice=computer_choice,
+            human_beats="scissors",
+            human_loses="paper",
         )
     elif human_choice == "paper":
         score_game(
-            human_choice=human_choice, computer_choice=computer_choice, human_beats="rock", human_loses="scissors"
+            human_choice=human_choice,
+            computer_choice=computer_choice,
+            human_beats="rock",
+            human_loses="scissors",
         )
     elif human_choice == "scissors":
-        score_game(human_choice=human_choice, computer_choice=computer_choice, human_beats="paper", human_loses="rock")
+        score_game(
+            human_choice=human_choice,
+            computer_choice=computer_choice,
+            human_beats="paper",
+            human_loses="rock",
+        )
 
 
 def play_rock_paper_scissors() -> None:

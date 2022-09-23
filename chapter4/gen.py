@@ -6,11 +6,13 @@ def squarer(vals: list) -> None:
     given a list of numbers, calculate the square of each one
     """
     for val in vals:
-        yield val ** 2
+        yield val**2
 
 
 squarer([1, 2, 3])
-squarer(range(100_000_000))  # generators can be passed other generators-- range is a generator
+squarer(
+    range(100_000_000)
+)  # generators can be passed other generators-- range is a generator
 
 x2 = squarer([1, 2, 3, 4, 5])
 print(sum(x2))

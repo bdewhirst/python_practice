@@ -68,26 +68,26 @@ def clear_screen():
     """
     Clear the screen before re-printing the menu
     """
-    clear = 'cls' if os.name == 'nt' else 'clear'
+    clear = "cls" if os.name == "nt" else "clear"
     os.system(clear)
 
 
 def loop():
     main()
-    _ = input('Press Enter to return to menu')
+    _ = input("Press Enter to return to menu")
 
 
 def main():
-    """
-
-    """
+    """ """
     print("Welcome to bookmarking widget!")
     commands.CreateBookmarksTableCommand().execute()
 
     options = {
         "A": Option("Add a bookmark", commands.AddBookmarkCommand()),
         "B": Option("List bookmars by date", commands.ListBookmarksCommand()),
-        "T": Option("List bookmarks by title", commands.ListBookmarksCommand(order_by="title")),
+        "T": Option(
+            "List bookmarks by title", commands.ListBookmarksCommand(order_by="title")
+        ),
         "D": Option("Delete a bookmark", commands.DeleteBookmarkCommand()),
         "Q": Option("Quit", commands.QuitCommand()),
     }
@@ -100,6 +100,6 @@ def main():
 
 if __name__ == "__main__":
 
-# This is the presentation layer
+    # This is the presentation layer
     while True:
         loop()

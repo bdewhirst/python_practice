@@ -28,7 +28,9 @@ class DatabaseManager:
         """
         Programmatically create a table, which returns an empty list
         """
-        columns_with_types = [f"{column_name} {data_type}" for column_name, data_type in columns.items()]
+        columns_with_types = [
+            f"{column_name} {data_type}" for column_name, data_type in columns.items()
+        ]
         self._execute(
             f"""
             CREATE TABLE IF NOT EXISTS {table_name}
@@ -80,7 +82,11 @@ class DatabaseManager:
         if order_by:
             query += f" ORDER BY {order_by}"
 
-        result = self._execute(statement=query, value=tuple(criteria.values()),)
+        result = self._execute(
+            statement=query,
+            value=tuple(criteria.values()),
+        )
         return result
+
 
 # Persistence layer

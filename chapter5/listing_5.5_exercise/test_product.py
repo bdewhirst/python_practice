@@ -9,7 +9,7 @@ def make_test_sku():
     return p
 
 
-class TestProduct():
+class TestProduct:
     def test_name_case(self) -> None:
         """
         Test method transform_name_for_sku returns upper case

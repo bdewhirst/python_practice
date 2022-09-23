@@ -22,7 +22,8 @@ class CreateBookmarksTableCommand:
             "date_added": "text not null",
         }
         db.create_table(
-            table_name="bookmarks", columns=cols,
+            table_name="bookmarks",
+            columns=cols,
         )
 
 
@@ -66,5 +67,6 @@ class QuitCommand:
 
     def execute(self):
         sys.exit()
+
 
 # Business logic layer

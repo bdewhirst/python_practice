@@ -30,7 +30,9 @@ class RPSSimulator:
         """
         self.computer_choice = random.choice(OPTIONS)
 
-    def announce_pick(self,) -> None:
+    def announce_pick(
+        self,
+    ) -> None:
         """
         Announce player and computer choices
         """
@@ -46,7 +48,9 @@ class RPSSimulator:
         elif self.computer_choice == human_loses:
             print("Sorry,", self.computer_choice, "beat", self.human_choice)
 
-    def determine_outcome(self,) -> None:
+    def determine_outcome(
+        self,
+    ) -> None:
         """
         Output results of the game
         """
