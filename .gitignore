@@ -1,2 +1,4 @@
 .idea/*
 .idea
+ppp-old-requirements.lock.txt
+*.pyc
