@@ -1,0 +1,2 @@
+hillard's solutions:
+https://github.com/daneah/practices-of-the-python-pro
