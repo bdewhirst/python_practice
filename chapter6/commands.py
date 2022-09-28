@@ -1,5 +1,4 @@
 import sys
-
 import datetime as dt
 
 import database_manager
