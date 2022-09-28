@@ -1,6 +1,12 @@
 import os
+from collections import OrderedDict
 
 import commands
+
+
+def print_bookmarks(bookmarks):
+    for bookmark in bookmarks:
+        print("\t".join(str(field) if field else "" for field in bookmark))
 
 
 class Option:
@@ -9,13 +15,19 @@ class Option:
         self.command = command
         self.prep_call = prep_call
 
-        def choose(self):
-            data = self.prep_call() if self.prep_call else None
-            message = self.command.execute(data) if data else self.command.execute()
+    def _handle_message(self, message):
+        if isinstance(message, list):
+            print_bookmarks(message)
+        else:
             print(message)
 
-        def __str__(self):
-            return self.name
+    def choose(self):
+        data = self.prep_call() if self.prep_call else None
+        message = self.command.execute(data) if data else self.command.execute()
+        self._handle_message(message)
+
+    def __str__(self):
+        return self.name
 
 
 def print_options(options):
@@ -24,17 +36,17 @@ def print_options(options):
     """
     for shortcut, option in options.items():
         print(f"({shortcut}) {option}")
-        print()
+    print()
 
 
-def option_choice_is_valid(choice, options: str):
+def option_choice_is_valid(choice, options):
     """
     Checks if selected choice is a valid option
     """
     return choice in options or choice.upper() in options
 
 
-def get_option_choice(options: str):
+def get_option_choice(options):
     """
     Prompt user to make a choice until they quit out
     """
@@ -45,14 +57,14 @@ def get_option_choice(options: str):
     return options[choice.upper()]
 
 
-def get_user_input(label, required: bool = True):
+def get_user_input(label, required=True):
     value = input(f"{label}: ") or None
     while required and not value:
         value = input(f"{label}: ") or None
     return value
 
 
-def get_new_bookmark_data() -> dict:
+def get_new_bookmark_data():
     return {
         "title": get_user_input(label="Title"),
         "url": get_user_input(label="URL"),
@@ -73,33 +85,42 @@ def clear_screen():
 
 
 def loop():
-    main()
-    _ = input("Press Enter to return to menu")
-
-
-def main():
-    """ """
-    print("Welcome to bookmarking widget!")
-    commands.CreateBookmarksTableCommand().execute()
-
-    options = {
-        "A": Option("Add a bookmark", commands.AddBookmarkCommand()),
-        "B": Option("List bookmars by date", commands.ListBookmarksCommand()),
-        "T": Option(
-            "List bookmarks by title", commands.ListBookmarksCommand(order_by="title")
-        ),
-        "D": Option("Delete a bookmark", commands.DeleteBookmarkCommand()),
-        "Q": Option("Quit", commands.QuitCommand()),
-    }
     clear_screen()
+    print("Welcome to Bark, the bookmarking widget!")
+
+    options = OrderedDict(
+        {
+            "A": Option(
+                name="Add a bookmark",
+                command=commands.AddBookmarkCommand(),
+                prep_call=get_new_bookmark_data,
+            ),
+            "B": Option(
+                name="List bookmarks by date",
+                command=commands.ListBookmarksCommand(),
+            ),
+            "T": Option(
+                name="List bookmarks by title",
+                command=commands.ListBookmarksCommand(order_by="title"),
+            ),
+            "D": Option(
+                name="Delete a bookmark",
+                command=commands.DeleteBookmarkCommand(),
+                prep_call=get_bookmark_id_for_deletion,
+            ),
+            "Q": Option(name="Quit", command=commands.QuitCommand()),
+        }
+    )
     print_options(options)
     chosen_option = get_option_choice(options)
     clear_screen()
     chosen_option.choose()
 
+    _ = input("Press Enter to return to menu")
+
 
 if __name__ == "__main__":
-
     # This is the presentation layer
+    commands.CreateBookmarksTableCommand().execute()
     while True:
         loop()

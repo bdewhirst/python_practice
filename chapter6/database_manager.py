@@ -1,9 +1,8 @@
 import sqlite3
-import pathlib
 
 
 class DatabaseManager:
-    def __init__(self, database_filename: pathlib.Path()):
+    def __init__(self, database_filename):
         """
         Creates a SQLite connection at the specified location
         """
@@ -15,16 +14,16 @@ class DatabaseManager:
         """
         self.connection.close()
 
-    def _execute(self, statement: str, values: list = []) -> list:
+    def _execute(self, statement, values=None):
         """
         Creates a cursor to run the query specified by statement and returns the result as a list
         """
         with self.connection:
             cursor = self.connection.cursor()
-            cursor.execute(statement, values)
+            cursor.execute(statement, values or [])
             return cursor
 
-    def create_table(self, table_name: str, columns: list) -> dict:
+    def create_table(self, table_name, columns):
         """
         Programmatically create a table, which returns an empty list
         """
@@ -38,53 +37,56 @@ class DatabaseManager:
             """
         )
 
-    def add(self, table_name: str, data: dict):
+    def add(self, table_name, data):
         """
         Programmatically add data to a database table
         """
-        placeholders: list = ", ".join("?" * len(data))
-        column_names: list = ", ".join(data.keys())
-        column_values: list = tuple(data.values())
+        placeholders = ", ".join("?" * len(data))
+        column_names = ", ".join(data.keys())
+        column_values = tuple(data.values())
 
         self._execute(
-            statement=f"""
+            f"""
             INSERT INTO {table_name}
-            {(column_names)}
+            ({column_names})
             VALUES ({placeholders});
             """,
-            values=column_values,
+            column_values,
         )
 
-    def delete(self, table_name: str, criteria: dict):
+    def delete(self, table_name, criteria):
         """
         Programmatically delete data as specified by critera
         """
-        placeholders: list = [f"{column} = ?" for column in criteria.keys()]
+        placeholders = [f"{column} = ?" for column in criteria.keys()]
         delete_criteria = " AND ".join(placeholders)
         self._execute(
-            statement=f"""
+            f"""
             DELETE FROM {table_name}
             WHERE {delete_criteria};
             """,
+            tuple(criteria.values()),
         )
 
-    def select(self, table_name: str, criteria: dict = {}, order_by: dict = {}) -> list:
+    def select(self, table_name, criteria=None, order_by=None):
         """
         Programmatically retrieve data from database and return it as a list
         """
-        query: str = f"SELECT * FROM {table_name}"
+        criteria = criteria or {}
+
+        query = f"SELECT * FROM {table_name}"
 
         if criteria:
-            placeholders: list = [f"{column} = ?" for column in criteria.keys()]
-            select_criteria: str = " AND ".join(placeholders)
+            placeholders = [f"{column} = ?" for column in criteria.keys()]
+            select_criteria = " AND ".join(placeholders)
             query += f" WHERE {select_criteria}"
 
         if order_by:
             query += f" ORDER BY {order_by}"
 
         result = self._execute(
-            statement=query,
-            value=tuple(criteria.values()),
+            query,
+            tuple(criteria.values()),
         )
         return result
 

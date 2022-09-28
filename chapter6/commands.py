@@ -12,7 +12,7 @@ class CreateBookmarksTableCommand:
     Create database table with loose coupling and separation of concerns
     """
 
-    def execute(self) -> None:
+    def execute(self):
         cols = {
             "id": "integer primary key autoincrement",
             "title": "text not null",
@@ -31,7 +31,7 @@ class AddBookmarkCommand:
     Update database table with loose coupling and separation of concerns
     """
 
-    def execute(self, bookmark_data) -> str:
+    def execute(self, bookmark_data):
         bookmark_data["date_added"] = dt.datetime.utcnow().isoformat()
         db.add(table_name="bookmarks", data=bookmark_data)
         return "Bookmark added!"
@@ -54,7 +54,7 @@ class DeleteBookmarkCommand:
     Remove bookmark
     """
 
-    def execute(self, id_to_remove) -> str:
+    def execute(self, id_to_remove):
         db.delete("bookmarks", {"id": id_to_remove})
         return "Bookmark deleted!"
 
