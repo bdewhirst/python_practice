@@ -7,4 +7,4 @@ rules of conduct:
 https://livebook.manning.com/#!/discussion
 
 book forum:
-https://livebook.manning.com/#!/book/practices-of-the-python-pro/
+https://livebook.manning.com/book/practices-of-the-python-pro/discussion
