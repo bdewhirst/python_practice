@@ -76,6 +76,16 @@ def get_bookmark_id_for_deletion():
     return get_user_input("Enter a bookmark ID to delete")
 
 
+def get_github_data():
+    return {
+        "github_username": get_user_input(label="Github User"),
+        "preserve_gh_ts": get_user_input(
+            label="Preserve Github Timestamp? (Y/N)",
+            required=False,
+        ),
+    }
+
+
 def clear_screen():
     """
     Clear the screen before re-printing the menu
@@ -107,6 +117,11 @@ def loop():
                 name="Delete a bookmark",
                 command=commands.DeleteBookmarkCommand(),
                 prep_call=get_bookmark_id_for_deletion,
+            ),
+            "G": Option(
+                name="Import github stars",
+                command=commands.GetGithubStarsCommand(),
+                prep_call=get_github_data,
             ),
             "Q": Option(name="Quit", command=commands.QuitCommand()),
         }
