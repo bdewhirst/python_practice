@@ -4,9 +4,14 @@ class Tire:
     def __repr__(self):
         return "a rubber tire"
 
+
 class Frame:
     def __repr__(self):
         return "an aluminum frame"
+
+class CarbonFrame:
+    def __repr__(self):
+        return "a carbon fiber frame"
 
 class Bicycle:
     def __init__(self, front_tire, back_tire, frame):
@@ -19,5 +24,7 @@ class Bicycle:
         print(f"Front Tire: {self.front_tire} back tire: {self.back_tire}")
 
 if __name__ == "__main__":
-    bike =  Bicycle(Tire(), Tire(), Frame())
-    bike.print_specs()
+    # bike =  Bicycle(Tire(), Tire(), Frame())
+    # bike.print_specs()
+    cff_bike =  Bicycle(Tire(), Tire(), CarbonFrame())
+    cff_bike.print_specs()
