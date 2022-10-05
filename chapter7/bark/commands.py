@@ -66,27 +66,34 @@ class GetGithubStarsCommand:
     Retrieve information from github API and save as a bookmark
     """
 
-    def execute(self, github_data):
+    def _extract_bookmark_info(self, repo):
+        return {
+            'title': repo["name"],
+            'url': repo['html_url'],
+            'notes': repo['description'],
+        }
+
+
+    def execute(self, github_data, ):
+
         github_username = github_data["github_username"]
         target_url = f"https://api.github.com/users/{github_username}/starred"
         responses = requests.get(target_url).json()
-        # starred_urls = []
-        for star in responses:
-            this_title = star["full_name"]
-            this_url = star["html_url"]
-            # notes = ''
-            this_dict = {
-                "title": this_title,
-                "url": this_url,
-            }
-            AddBookmarkCommand.execute(self, bookmark_data=this_dict)
 
-        # def get_new_bookmark_data():
-        #     return {
-        #         "title": get_user_input(label="Title"),
-        #         "url": get_user_input(label="URL"),
-        #         "notes": get_user_input(label="Notes", required=False),
-        #     }
+        for star in responses:
+            # this_title = star["full_name"]
+            # this_url = star["html_url"]
+            # # notes = ''
+            # if timestamp is None:
+            #     this_dict = {
+            #         "title": this_title,
+            #         "url": this_url,
+            #     }
+            # else:
+            #     timestamp = star[""]
+            AddBookmarkCommand.execute(self, bookmark_data=self._extract_bookmark_info(repo=star))
+
+
 
         # notes:
         """
