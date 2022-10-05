@@ -4,6 +4,9 @@ class Tire:
 
 
 class FancyTire(Tire):
+    # narrow/shallow hierarchy
+    # doesn't depend on other objects
+    # uses or specializes (specializes) all behavior of parent class
     def __repr__(self):
         return 'A fancy tire'
 
@@ -19,6 +22,9 @@ class AluminumFrame(Frame):
 
 
 class CarbonFiberFrame(Frame):
+    # narrow/shallow hierarchy
+    # doesn't depend on other objects
+    # uses or specializes (specializes) all behavior of parent class
     def __repr__(self):
         return 'A carbon fiber frame'
 
@@ -35,6 +41,7 @@ class Bicycle:
 
 
 if __name__ == '__main__':
+    # each example demonstrates Likov substitutability-- you can use the child in place of the parent class
     bike = Bicycle(Tire(), Tire(), AluminumFrame())
     bike.print_specs()
 
