@@ -6,6 +6,9 @@ class Predator(ABC):
     def eat(self, prey):
         pass
 
+    def roar(self):
+        print("Roar!")
+
 
 class Bear(Predator):
     def eat(self, prey):
@@ -29,6 +32,7 @@ class Vegan(Predator):
 if __name__ == "__main__":
     bear = Bear()
     bear.eat("deer")
+    bear.roar()
     owl = Owl()
     owl.eat("mouse")
     chameleon = Chameleon()
