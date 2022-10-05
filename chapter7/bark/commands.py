@@ -68,42 +68,39 @@ class GetGithubStarsCommand:
 
     def _extract_bookmark_info(self, repo):
         return {
-            'title': repo["name"],
-            'url': repo['html_url'],
-            'notes': repo['description'],
+            "title": repo["name"],
+            "url": repo["html_url"],
+            "notes": repo["description"],
         }
 
-
-    def execute(self, github_data, ):
+    def execute(
+        self,
+        github_data,
+    ):
 
         github_username = github_data["github_username"]
         target_url = f"https://api.github.com/users/{github_username}/starred"
-        responses = requests.get(target_url).json()
+        headers = {
+            "Accept": "application/vnd.github.v3.star+json",
+        }  # passing the header changes more behavior than just adding a value
+        responses = requests.get(target_url, headers=headers).json()
 
-        for star in responses:
-            # this_title = star["full_name"]
-            # this_url = star["html_url"]
-            # # notes = ''
-            # if timestamp is None:
-            #     this_dict = {
-            #         "title": this_title,
-            #         "url": this_url,
-            #     }
-            # else:
-            #     timestamp = star[""]
-            AddBookmarkCommand.execute(self, bookmark_data=self._extract_bookmark_info(repo=star))
+        for repo_info in responses:
+            star = repo_info[
+                "repo"
+            ]  # necessary to both follow my implementation and to use above header
+            if github_data["preserve_gh_ts"].upper() == "Y":
+                timestamp = dt.datetime.strptime(
+                    repo_info["starred_at"], "%Y-%m-%dT%H:%M:%SZ"
+                )
+            else:
+                timestamp = None
 
-
-
-        # notes:
-        """
-        1. get initial page of star results f'https://api.github.com/users/{github_username}/starred'
-        2. parse data from response and use to execute AddBookmarkCommand for each starred repository
-        3. get the link: <...>; rel=next header, if present
-        4. repeat for the next page if there is one, otherwise stop
-
-        n.b.: to get timestamps, you have to pass 'Accept: application/vnd.github.v3.star+json' header
-        """
+            AddBookmarkCommand.execute(
+                self,
+                bookmark_data=self._extract_bookmark_info(repo=star),
+                timestamp=timestamp,
+            )
 
 
 class QuitCommand:
