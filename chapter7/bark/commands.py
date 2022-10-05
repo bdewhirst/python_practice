@@ -72,9 +72,21 @@ class GetGithubStarsCommand:
         responses = requests.get(target_url).json()
         # starred_urls = []
         for star in responses:
-            print(star["full_name"])
-            # starred_urls.append(star)
-        print(responses)
+            this_title = star["full_name"]
+            this_url = star["html_url"]
+            # notes = ''
+            this_dict = {
+                "title": this_title,
+                "url": this_url,
+            }
+            AddBookmarkCommand.execute(self, bookmark_data=this_dict)
+
+        # def get_new_bookmark_data():
+        #     return {
+        #         "title": get_user_input(label="Title"),
+        #         "url": get_user_input(label="URL"),
+        #         "notes": get_user_input(label="Notes", required=False),
+        #     }
 
         # notes:
         """
