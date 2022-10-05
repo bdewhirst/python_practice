@@ -22,6 +22,10 @@ class Chameleon(Predator):
         print(f"Shooting tongue at {prey}!")
 
 
+class Vegan(Predator):
+    pass
+
+
 if __name__ == "__main__":
     bear = Bear()
     bear.eat("deer")
@@ -29,3 +33,4 @@ if __name__ == "__main__":
     owl.eat("mouse")
     chameleon = Chameleon()
     chameleon.eat("fly")
+    vegan = Vegan()  # meant to throw an error
