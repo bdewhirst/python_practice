@@ -46,4 +46,15 @@ if __name__ == '__main__':
     bike.print_specs()
 
     bike = Bicycle(FancyTire(), FancyTire(), CarbonFiberFrame())
+    # example debug code from a PyCharm breakpoint set on the above line:
+    # `print(type(bike))`
+    # `print(type(bike.front_tire))`, etc.
+
+    # `print(isinstance(FancyTire, Tire))`  # False
+    # `print(isinstance(FancyTire(), Tire))`  # True
+    # `print(isinstance(bike, Bicycle))`  # True
+    # `print(isinstance(bike, Tire))`  # False
+    # `print(issubclass(Tire, Tire))`  # True-- classes are considered subclasses of themself
+    # `print(issubclass(FancyTire, Tire))`  # True
+    # `print(issubclass(Tire, FancyTire))`  # False
     bike.print_specs()
