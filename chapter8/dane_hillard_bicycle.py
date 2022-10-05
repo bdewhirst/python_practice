@@ -1,6 +1,6 @@
 class Tire:
     def __repr__(self):
-        return 'A rubber tire'
+        return "A rubber tire"
 
 
 class FancyTire(Tire):
@@ -8,17 +8,17 @@ class FancyTire(Tire):
     # doesn't depend on other objects
     # uses or specializes (specializes) all behavior of parent class
     def __repr__(self):
-        return 'A fancy tire'
+        return "A fancy tire"
 
 
 class Frame:
     def __repr__(self):
-        return 'A bicycle frame'
+        return "A bicycle frame"
 
 
 class AluminumFrame(Frame):
     def __repr__(self):
-        return 'An aluminum frame'
+        return "An aluminum frame"
 
 
 class CarbonFiberFrame(Frame):
@@ -26,7 +26,7 @@ class CarbonFiberFrame(Frame):
     # doesn't depend on other objects
     # uses or specializes (specializes) all behavior of parent class
     def __repr__(self):
-        return 'A carbon fiber frame'
+        return "A carbon fiber frame"
 
 
 class Bicycle:
@@ -36,11 +36,11 @@ class Bicycle:
         self.frame = frame
 
     def print_specs(self):
-        print(f'Frame: {self.frame}')
-        print(f'Front tire: {self.front_tire}, back tire: {self.back_tire}')
+        print(f"Frame: {self.frame}")
+        print(f"Front tire: {self.front_tire}, back tire: {self.back_tire}")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     # each example demonstrates Likov substitutability-- you can use the child in place of the parent class
     bike = Bicycle(Tire(), Tire(), AluminumFrame())
     bike.print_specs()

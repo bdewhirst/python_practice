@@ -1,20 +1,29 @@
 class BigCat:
     def eats(self):
-        return ['rodents']
+        return ["rodents"]
+
 
 class Lion(BigCat):
     def eats(self):
-        return ['wildebeest']
+        return ["wildebeest"]
+
 
 class Tiger(BigCat):
     def eats(self):
-        return ['water buffalo']
+        return ["water buffalo"]
+
 
 class Liger(Lion, Tiger):
     def eats(self):
-        return super().eats() + ['rabbit', 'cow', 'pig', 'chicken',]
+        return super().eats() + [
+            "rabbit",
+            "cow",
+            "pig",
+            "chicken",
+        ]
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     lion = Lion()
     print("The lion eats", lion.eats())
     tiger = Tiger()
