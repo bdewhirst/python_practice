@@ -21,7 +21,7 @@ class CreateBookmarksTableCommand(Command):
     Create database table with loose coupling and separation of concerns
     """
 
-    def execute(self):
+    def execute(self, data=None):
         cols = {
             "id": "integer primary key autoincrement",
             "title": "text not null",
@@ -40,9 +40,9 @@ class AddBookmarkCommand(Command):
     Update database table with loose coupling and separation of concerns
     """
 
-    def execute(self, bookmark_data, timestamp=None):
-        bookmark_data["date_added"] = timestamp or dt.datetime.utcnow().isoformat()
-        db.add(table_name="bookmarks", data=bookmark_data)
+    def execute(self, data, timestamp=None):  # my implementation here breaks the intended signature
+        data["date_added"] = timestamp or dt.datetime.utcnow().isoformat()
+        db.add(table_name="bookmarks", data=data)
         return "Bookmark added!"
 
 
@@ -51,7 +51,7 @@ class ListBookmarksCommand(Command):
     Retrieve stored bookmarks
     """
 
-    def __init__(self, order_by="date_added"):
+    def __init__(self, order_by="date_added"):  # again, seems to break signature (check DH's code)
         self.order_by = order_by
 
     def execute(self):
@@ -63,8 +63,8 @@ class DeleteBookmarkCommand(Command):
     Remove bookmark
     """
 
-    def execute(self, id_to_remove):
-        db.delete("bookmarks", {"id": id_to_remove})
+    def execute(self, data):  # ...
+        db.delete("bookmarks", {"id": self.data})
         return "Bookmark deleted!"
 
 
@@ -82,10 +82,10 @@ class GetGithubStarsCommand(Command):
 
     def execute(
         self,
-        github_data,
+        data,
     ):
 
-        github_username = github_data["github_username"]
+        github_username = data["github_username"]
         target_url = f"https://api.github.com/users/{github_username}/starred"
         headers = {
             "Accept": "application/vnd.github.v3.star+json",
@@ -96,7 +96,7 @@ class GetGithubStarsCommand(Command):
             star = repo_info[
                 "repo"
             ]  # necessary to both follow my implementation and to use above header
-            if github_data["preserve_gh_ts"].upper() == "Y":
+            if data["preserve_gh_ts"].upper() == "Y":
                 timestamp = dt.datetime.strptime(
                     repo_info["starred_at"], "%Y-%m-%dT%H:%M:%SZ"
                 )
@@ -105,7 +105,7 @@ class GetGithubStarsCommand(Command):
 
             AddBookmarkCommand.execute(
                 self,
-                bookmark_data=self._extract_bookmark_info(repo=star),
+                data=self._extract_bookmark_info(repo=star),
                 timestamp=timestamp,
             )
 
