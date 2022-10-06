@@ -2,15 +2,15 @@ class Book:
     def __init__(self, data):
         self.title = data["title"]
         self.subtitle = data["subtitle"]
-        self.set_display_title()
 
-    def set_display_title(self):
+    @property
+    def display_title(self):
         if self.title and self.subtitle:
-            self.display_title = f"{self.title}: {self.subtitle}"
+            return f"{self.title}: {self.subtitle}"
         elif self.title:
-            self.display_title = self.title
+            return self.title
         else:
-            self.display_title = "Untitled"
+            return "Untitled"
 
 
 d_tests = [
