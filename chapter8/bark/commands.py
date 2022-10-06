@@ -54,7 +54,7 @@ class ListBookmarksCommand(Command):
     def __init__(self, order_by="date_added"):
         self.order_by = order_by
 
-    def execute(self):
+    def execute(self, data=None):
         return db.select("bookmarks", order_by=self.order_by).fetchall()
 
 
@@ -115,5 +115,5 @@ class QuitCommand(Command):
     Quit out of the program
     """
 
-    def execute(self):
+    def execute(self, data=None):
         sys.exit()
