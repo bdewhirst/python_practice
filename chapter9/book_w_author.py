@@ -1,14 +1,17 @@
+import warnings
+
+
 class Author:
     def __init__(self, data):
         self.first_name = data["first_name"]
         self.last_name = data["last_name"]
 
     @property
-    def author_for_display(self):
+    def for_display(self):
         return f"{self.first_name} {self.last_name}"
 
     @property
-    def author_for_citation(self):
+    def for_citation(self):
         return f"{self.last_name} {self.first_name[0]}"
 
 
@@ -21,11 +24,15 @@ class Book:
 
     @property
     def author_for_display(self):
-        return self.author.author_for_display
+        warnings.warn("In the future, call Book.author.for_display", DeprecationWarning)
+        return self.author.for_display
 
     @property
     def author_for_citation(self):
-        return self.author.author_for_citation
+        warnings.warn(
+            "In the future, call Book.author.for_citation", DeprecationWarning
+        )
+        return self.author.for_citation
 
     @property
     def display_title(self):
@@ -50,3 +57,5 @@ book = Book(
 print(book.display_title)
 print(book.author_for_display)
 print(book.author_for_citation)
+print(book.author.for_display)
+print(book.author.for_citation)
