@@ -33,6 +33,7 @@ class CreateBookmarksTableCommand(Command):
             table_name="bookmarks",
             columns=cols,
         )
+        return True, None
 
 
 class AddBookmarkCommand(Command):
