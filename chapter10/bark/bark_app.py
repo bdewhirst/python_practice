@@ -23,8 +23,8 @@ class Option:
 
     def choose(self):
         data = self.prep_call() if self.prep_call else None
-        message = self.command.execute(data)
-        self._handle_message(message)
+        status, result = self.command.execute(data)
+        self._handle_message(result)
 
     def __str__(self):
         return self.name
