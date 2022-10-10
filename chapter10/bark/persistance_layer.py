@@ -30,12 +30,12 @@ class BookmarkDatabase(PersistanceLayer):
         """
         self.table_name = "bookmarks"
         self.cols = {
-                "id": "integer primary key autoincrement",
-                "title": "text not null",
-                "url": "text not null",
-                "notes": "text",
-                "date_added": "text not null",
-            }
+            "id": "integer primary key autoincrement",
+            "title": "text not null",
+            "url": "text not null",
+            "notes": "text",
+            "date_added": "text not null",
+        }
 
         self.db = DatabaseManager("bookmarks.db")
         self.db.create_table(self.table_name, self.cols)
@@ -43,8 +43,10 @@ class BookmarkDatabase(PersistanceLayer):
     def create(self, data):
         self.db.add(self.table_name, data)
 
-    def list(self, order_by):
-        self.db.select(self.table_name, order_by=order_by)
+    def list(self, criteria=None, order_by=None):
+        return self.db.select(
+            self.table_name, criteria=criteria, order_by=order_by
+        ).fetchall()
 
     def edit(self, bookmark_id, bookmark_data):
         self.db.update(self.table_name, bookmark_id, bookmark_data)

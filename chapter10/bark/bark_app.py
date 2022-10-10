@@ -135,7 +135,5 @@ def loop():
 
 
 if __name__ == "__main__":
-    # This is the presentation layer
-    commands.CreateBookmarksTableCommand().execute()
     while True:
         loop()

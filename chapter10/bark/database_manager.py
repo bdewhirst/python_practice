@@ -91,18 +91,18 @@ class DatabaseManager:
         return result
 
     def update(self, table_name, criteria, data):
-        update_placeholders = [f'{column} = ?' for column in criteria.keys()]
-        update_criteria = ' AND '.join(update_placeholders)
+        update_placeholders = [f"{column} = ?" for column in criteria.keys()]
+        update_criteria = " AND ".join(update_placeholders)
 
-        data_placeholders = ', '.join(f'{key} = ?' for key in data.keys())
+        data_placeholders = ", ".join(f"{key} = ?" for key in data.keys())
 
         values = tuple(data.values()) + tuple(criteria.values())
 
         self._execute(
-            f'''
+            f"""
             UPDATE {table_name}
             SET {data_placeholders}
             WHERE {update_criteria};
-            ''',
+            """,
             values,
         )

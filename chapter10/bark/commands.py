@@ -4,36 +4,16 @@ from abc import ABC, abstractmethod
 
 import requests
 
-import database_manager
+import persistance_layer
 
 
-db = database_manager.DatabaseManager(database_filename="bookmarks.db")
+p_layer = persistance_layer.BookmarkDatabase()
 
 
 class Command(ABC):
     @abstractmethod
     def execute(self, data):
         raise NotImplementedError()
-
-
-class CreateBookmarksTableCommand(Command):
-    """
-    Create database table with loose coupling and separation of concerns
-    """
-
-    def execute(self, data=None):
-        cols = {
-            "id": "integer primary key autoincrement",
-            "title": "text not null",
-            "url": "text not null",
-            "notes": "text",
-            "date_added": "text not null",
-        }
-        db.create_table(
-            table_name="bookmarks",
-            columns=cols,
-        )
-        return True, None
 
 
 class AddBookmarkCommand(Command):
@@ -43,7 +23,7 @@ class AddBookmarkCommand(Command):
 
     def execute(self, data, timestamp=None):
         data["date_added"] = timestamp or dt.datetime.utcnow().isoformat()
-        db.add(table_name="bookmarks", data=data)
+        p_layer.create(data=data)
         return True, "Bookmark added!"
 
 
@@ -56,7 +36,7 @@ class ListBookmarksCommand(Command):
         self.order_by = order_by
 
     def execute(self, data=None):
-        return True, db.select("bookmarks", order_by=self.order_by).fetchall()
+        return True, p_layer.list(order_by=self.order_by)
 
 
 class DeleteBookmarkCommand(Command):
@@ -65,7 +45,7 @@ class DeleteBookmarkCommand(Command):
     """
 
     def execute(self, data):
-        db.delete("bookmarks", {"id": data})
+        p_layer.delete({"id": data})
         return True, "Bookmark deleted!"
 
 
