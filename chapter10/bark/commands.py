@@ -99,3 +99,9 @@ class QuitCommand(Command):
 
     def execute(self, data=None):
         sys.exit()
+
+
+# the following is not implemented, as it was optional earlier
+class EditBookmarkCommand(Command):
+    def execute(self, data):
+        pass
